@@ -6,22 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
+
             $table->id();
 
             $table->foreignId('roleId')
-                  ->constrained('mas_roles');
+                  ->constrained('mas_roles')
+                  ->onDelete('cascade');
 
             $table->string('name', 50);
 
             $table->string('email', 50)->unique();
 
-            $table->string('password');
+            $table->string('password', 20);
 
             $table->char('phone_no', 10);
 
@@ -29,9 +29,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('users');
