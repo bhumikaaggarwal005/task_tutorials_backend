@@ -8,6 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
@@ -27,7 +29,7 @@ return new class extends Migration
             // Duration in minutes
             $table->integer('duration');
 
-            // Video URL
+            // Video Link
             $table->string('video_link', 100);
 
             // created_at & updated_at
@@ -37,6 +39,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down()
     {
