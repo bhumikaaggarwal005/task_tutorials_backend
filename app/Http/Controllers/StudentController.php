@@ -26,7 +26,7 @@ class StudentController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong',
+                'message' => 'Failed to Fetch Students',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -41,8 +41,8 @@ class StudentController extends Controller
 
             // VALIDATION
             $request->validate([
-                'user_id' => 'required',
-                'class_id' => 'required',
+                'userId' => 'required',
+                'classId' => 'required',
                 'dob' => 'required',
                 'address' => 'required',
                 'status' => 'required'
@@ -50,8 +50,8 @@ class StudentController extends Controller
 
             // CREATE STUDENT
             $student = Student::create([
-                'user_id' => $request->user_id,
-                'class_id' => $request->class_id,
+                'userId' => $request->userId,
+                'classId' => $request->classId,
                 'dob' => $request->dob,
                 'address' => $request->address,
                 'status' => $request->status
@@ -80,9 +80,10 @@ class StudentController extends Controller
     {
         try {
 
+            // FIND STUDENT
             $student = Student::find($id);
 
-            // CHECK STUDENT EXISTS
+            // CHECK IF EXISTS
             if (!$student) {
                 return response()->json([
                     'success' => false,
@@ -92,8 +93,8 @@ class StudentController extends Controller
 
             // VALIDATION
             $request->validate([
-                'user_id' => 'required',
-                'class_id' => 'required',
+                'userId' => 'required',
+                'classId' => 'required',
                 'dob' => 'required',
                 'address' => 'required',
                 'status' => 'required'
@@ -101,8 +102,8 @@ class StudentController extends Controller
 
             // UPDATE STUDENT
             $student->update([
-                'user_id' => $request->user_id,
-                'class_id' => $request->class_id,
+                'userId' => $request->userId,
+                'classId' => $request->classId,
                 'dob' => $request->dob,
                 'address' => $request->address,
                 'status' => $request->status
@@ -131,9 +132,10 @@ class StudentController extends Controller
     {
         try {
 
+            // FIND STUDENT
             $student = Student::find($id);
 
-            // CHECK STUDENT EXISTS
+            // CHECK IF EXISTS
             if (!$student) {
                 return response()->json([
                     'success' => false,
