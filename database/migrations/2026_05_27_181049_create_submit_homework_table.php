@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('submit_homeworks', function (Blueprint $table) {
 
             /*
             |--------------------------------------------------------------------------
@@ -25,43 +25,51 @@ return new class extends Migration
 
             /*
             |--------------------------------------------------------------------------
-            | CLASS REFERENCE
+            | ASSIGNED HOMEWORK REFERENCE
             |--------------------------------------------------------------------------
             */
 
-            $table->foreignId('class_id')
+            $table->foreignId('assign_homework_id')
 
-                  ->constrained('classes')
+                  ->constrained('assign_homeworks')
 
                   ->onDelete('cascade');
 
             /*
             |--------------------------------------------------------------------------
-            | SUBJECT REFERENCE
+            | STUDENT REFERENCE
             |--------------------------------------------------------------------------
             */
 
-            $table->foreignId('subject_id')
+            $table->foreignId('student_id')
 
-                  ->constrained('subjects')
+                  ->constrained('students')
 
                   ->onDelete('cascade');
 
             /*
             |--------------------------------------------------------------------------
-            | NOTE TOPIC
+            | SUBMITTED FILE
             |--------------------------------------------------------------------------
             */
 
-            $table->string('topic', 100);
+            $table->string('file');
 
             /*
             |--------------------------------------------------------------------------
-            | FILE URL
+            | STATUS
             |--------------------------------------------------------------------------
             */
 
-            $table->string('file_url');
+            $table->string('status')->default('pending');
+
+            /*
+            |--------------------------------------------------------------------------
+            | FACULTY FEEDBACK
+            |--------------------------------------------------------------------------
+            */
+
+            $table->text('remarks')->nullable();
 
             /*
             |--------------------------------------------------------------------------
@@ -80,6 +88,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('submit_homeworks');
     }
 };

@@ -4,15 +4,16 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\MasRoleController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\RecordingController;
-use App\Http\Controllers\HomeworkController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\MasRoleController;
-use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\AssignHomeworkController;
+use App\Http\Controllers\SubmitHomeworkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,32 +49,129 @@ Route::middleware(['auth.session.api'])->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::middleware(['isStudent'])->group(function () {
+    Route::middleware([
 
-        // NOTES
-        Route::get('/notes', [NoteController::class, 'index']);
+        'isStudent',
 
-        Route::get('/notes/{id}', [NoteController::class, 'show']);
+        'hasAccess'
 
-        // RECORDINGS
-        Route::get('/recordings', [RecordingController::class, 'index']);
+    ])->group(function () {
 
-        Route::get('/recordings/{id}', [RecordingController::class, 'show']);
+        /*
+        |--------------------------------------------------------------------------
+        | NOTES
+        |--------------------------------------------------------------------------
+        */
 
-        // HOMEWORKS
-        Route::get('/homeworks', [HomeworkController::class, 'index']);
+        Route::get('/notes', [
 
-        Route::get('/homeworks/{id}', [HomeworkController::class, 'show']);
+            NoteController::class,
 
-        // CLASSES
-       
+            'index'
 
-        Route::get('/classes/{id}', [ClassController::class, 'show']);
+        ]);
 
-        // SUBJECTS
-        Route::get('/subjects', [SubjectController::class, 'index']);
+        Route::get('/notes/{id}', [
 
-        Route::get('/subjects/{id}', [SubjectController::class, 'show']);
+            NoteController::class,
+
+            'show'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RECORDINGS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/recordings', [
+
+            RecordingController::class,
+
+            'index'
+
+        ]);
+
+        Route::get('/recordings/{id}', [
+
+            RecordingController::class,
+
+            'show'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | ASSIGN HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/assign-homeworks', [
+
+            AssignHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SUBMIT HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/submit-homeworks', [
+
+            SubmitHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/submit-homeworks', [
+
+            SubmitHomeworkController::class,
+
+            'store'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | CLASSES
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/classes/{id}', [
+
+            ClassController::class,
+
+            'show'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SUBJECTS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/subjects', [
+
+            SubjectController::class,
+
+            'index'
+
+        ]);
+
+        Route::get('/subjects/{id}', [
+
+            SubjectController::class,
+
+            'show'
+
+        ]);
     });
 
     /*
@@ -84,26 +182,141 @@ Route::middleware(['auth.session.api'])->group(function () {
 
     Route::middleware(['isFaculty'])->group(function () {
 
-        // NOTES
-        Route::post('/notes', [NoteController::class, 'store']);
+        /*
+        |--------------------------------------------------------------------------
+        | NOTES
+        |--------------------------------------------------------------------------
+        */
 
-        Route::put('/notes/{id}', [NoteController::class, 'update']);
+        Route::get('/notes', [
 
-        Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
+            NoteController::class,
 
-        // RECORDINGS
-        Route::post('/recordings', [RecordingController::class, 'store']);
+            'index'
 
-        Route::put('/recordings/{id}', [RecordingController::class, 'update']);
+        ]);
 
-        Route::delete('/recordings/{id}', [RecordingController::class, 'destroy']);
+        Route::post('/notes', [
 
-        // HOMEWORKS
-        Route::post('/homeworks', [HomeworkController::class, 'store']);
+            NoteController::class,
 
-        Route::put('/homeworks/{id}', [HomeworkController::class, 'update']);
+            'store'
 
-        Route::delete('/homeworks/{id}', [HomeworkController::class, 'destroy']);
+        ]);
+
+        Route::put('/notes/{id}', [
+
+            NoteController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/notes/{id}', [
+
+            NoteController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RECORDINGS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/recordings', [
+
+            RecordingController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/recordings', [
+
+            RecordingController::class,
+
+            'store'
+
+        ]);
+
+        Route::put('/recordings/{id}', [
+
+            RecordingController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/recordings/{id}', [
+
+            RecordingController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | ASSIGN HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/assign-homeworks', [
+
+            AssignHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/assign-homeworks', [
+
+            AssignHomeworkController::class,
+
+            'store'
+
+        ]);
+
+        Route::put('/assign-homeworks/{id}', [
+
+            AssignHomeworkController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/assign-homeworks/{id}', [
+
+            AssignHomeworkController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SUBMIT HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/submit-homeworks', [
+
+            SubmitHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        Route::put('/submit-homeworks/{id}', [
+
+            SubmitHomeworkController::class,
+
+            'update'
+
+        ]);
     });
 
     /*
@@ -114,61 +327,361 @@ Route::middleware(['auth.session.api'])->group(function () {
 
     Route::middleware(['isAdmin'])->group(function () {
 
-        // USERS
-        Route::get('/users', [UserController::class, 'index']);
+        /*
+        |--------------------------------------------------------------------------
+        | USERS
+        |--------------------------------------------------------------------------
+        */
 
-        Route::post('/users', [UserController::class, 'store']);
+        Route::get('/users', [
 
-        Route::get('/users/{id}', [UserController::class, 'show']);
+            UserController::class,
 
-        Route::put('/users/{id}', [UserController::class, 'update']);
+            'index'
 
-        Route::delete('/users/{id}', [UserController::class, 'destroy']);
+        ]);
 
-        // STUDENTS
-        Route::get('/students', [StudentController::class, 'index']);
+        Route::post('/users', [
 
-        Route::post('/students', [StudentController::class, 'store']);
+            UserController::class,
 
-        Route::put('/students/{id}', [StudentController::class, 'update']);
+            'store'
 
-        Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+        ]);
 
-        // FACULTIES
-        Route::get('/faculties', [FacultyController::class, 'index']);
+        Route::get('/users/{id}', [
 
-        Route::post('/faculties', [FacultyController::class, 'store']);
+            UserController::class,
 
-        Route::get('/faculties/{id}', [FacultyController::class, 'show']);
+            'show'
 
-        Route::put('/faculties/{id}', [FacultyController::class, 'update']);
+        ]);
 
-        Route::delete('/faculties/{id}', [FacultyController::class, 'destroy']);
+        Route::put('/users/{id}', [
 
-        // SUBJECTS
-        Route::post('/subjects', [SubjectController::class, 'store']);
+            UserController::class,
 
-        Route::put('/subjects/{id}', [SubjectController::class, 'update']);
+            'update'
 
-        Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
+        ]);
 
-        // CLASSES
-        Route::post('/classes', [ClassController::class, 'store']);
+        Route::delete('/users/{id}', [
 
-        Route::put('/classes/{id}', [ClassController::class, 'update']);
+            UserController::class,
 
-        Route::delete('/classes/{id}', [ClassController::class, 'destroy']);
+            'destroy'
 
-        // MAS ROLES
-        Route::get('/mas-roles', [MasRoleController::class, 'index']);
+        ]);
 
-        Route::post('/mas-roles', [MasRoleController::class, 'store']);
+        /*
+        |--------------------------------------------------------------------------
+        | STUDENTS
+        |--------------------------------------------------------------------------
+        */
 
-        Route::get('/mas-roles/{id}', [MasRoleController::class, 'show']);
+        Route::get('/students', [
 
-        Route::put('/mas-roles/{id}', [MasRoleController::class, 'update']);
+            StudentController::class,
 
-        Route::delete('/mas-roles/{id}', [MasRoleController::class, 'destroy']);
+            'index'
+
+        ]);
+
+        Route::post('/students', [
+
+            StudentController::class,
+
+            'store'
+
+        ]);
+
+        Route::put('/students/{id}', [
+
+            StudentController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/students/{id}', [
+
+            StudentController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | FACULTIES
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/faculties', [
+
+            FacultyController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/faculties', [
+
+            FacultyController::class,
+
+            'store'
+
+        ]);
+
+        Route::get('/faculties/{id}', [
+
+            FacultyController::class,
+
+            'show'
+
+        ]);
+
+        Route::put('/faculties/{id}', [
+
+            FacultyController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/faculties/{id}', [
+
+            FacultyController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SUBJECTS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/subjects', [
+
+            SubjectController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/subjects', [
+
+            SubjectController::class,
+
+            'store'
+
+        ]);
+
+        Route::get('/subjects/{id}', [
+
+            SubjectController::class,
+
+            'show'
+
+        ]);
+
+        Route::put('/subjects/{id}', [
+
+            SubjectController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/subjects/{id}', [
+
+            SubjectController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | CLASSES
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/classes', [
+
+            ClassController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/classes', [
+
+            ClassController::class,
+
+            'store'
+
+        ]);
+
+        Route::get('/classes/{id}', [
+
+            ClassController::class,
+
+            'show'
+
+        ]);
+
+        Route::put('/classes/{id}', [
+
+            ClassController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/classes/{id}', [
+
+            ClassController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RECORDINGS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/recordings', [
+
+            RecordingController::class,
+
+            'index'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | NOTES
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/notes', [
+
+            NoteController::class,
+
+            'index'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | ASSIGN HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/assign-homeworks', [
+
+            AssignHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/assign-homeworks', [
+
+            AssignHomeworkController::class,
+
+            'store'
+
+        ]);
+
+        Route::put('/assign-homeworks/{id}', [
+
+            AssignHomeworkController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/assign-homeworks/{id}', [
+
+            AssignHomeworkController::class,
+
+            'destroy'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SUBMIT HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/submit-homeworks', [
+
+            SubmitHomeworkController::class,
+
+            'index'
+
+        ]);
+
+        Route::put('/submit-homeworks/{id}', [
+
+            SubmitHomeworkController::class,
+
+            'update'
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | MAS ROLES
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/mas-roles', [
+
+            MasRoleController::class,
+
+            'index'
+
+        ]);
+
+        Route::post('/mas-roles', [
+
+            MasRoleController::class,
+
+            'store'
+
+        ]);
+
+        Route::get('/mas-roles/{id}', [
+
+            MasRoleController::class,
+
+            'show'
+
+        ]);
+
+        Route::put('/mas-roles/{id}', [
+
+            MasRoleController::class,
+
+            'update'
+
+        ]);
+
+        Route::delete('/mas-roles/{id}', [
+
+            MasRoleController::class,
+
+            'destroy'
+
+        ]);
     });
 
     /*

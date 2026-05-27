@@ -12,27 +12,45 @@ class Note extends Model
     protected $table = 'notes';
 
     protected $fillable = [
+
         'class_id',
+
         'subject_id',
+
         'topic',
+
         'file_url'
     ];
 
     /*
     |--------------------------------------------------------------------------
-    | Relationships
+    | NOTE BELONGS TO CLASS
     |--------------------------------------------------------------------------
     */
 
-    // Note belongs to class
     public function class()
     {
-        return $this->belongsTo(ClassModel::class, 'class_id');
+        return $this->belongsTo(
+
+            ClassModel::class,
+
+            'class_id'
+        );
     }
 
-    // Note belongs to subject
+    /*
+    |--------------------------------------------------------------------------
+    | NOTE BELONGS TO SUBJECT
+    |--------------------------------------------------------------------------
+    */
+
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'subject_id');
+        return $this->belongsTo(
+
+            Subject::class,
+
+            'subject_id'
+        );
     }
 }
