@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Homework;
+use App\Models\Enrollment;
 
 class HomeworkController extends Controller
 {
@@ -14,12 +15,53 @@ class HomeworkController extends Controller
     */
     public function index()
     {
-        $homeworks = Homework::with(['class', 'student'])->get();
+        /*
+        |--------------------------------------------------------------------------
+        | ADMIN GETS ALL HOMEWORK
+        |--------------------------------------------------------------------------
+        */
+
+        if (auth()->user()->roleId == 3) {
+
+            $homeworks = Homework::with(['class', 'student'])->get();
+
+            return response()->json([
+
+                'success' => true,
+
+                'message' => 'All homeworks fetched successfully',
+
+                'data' => $homeworks
+
+            ], 200);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | STUDENT GETS ONLY ENROLLED CLASS HOMEWORKS
+        |--------------------------------------------------------------------------
+        */
+
+        $classIds = Enrollment::where('userId', auth()->id())
+
+            ->where('status', 'approved')
+
+            ->pluck('classId');
+
+        $homeworks = Homework::whereIn('class_id', $classIds)
+
+            ->with(['class', 'student'])
+
+            ->get();
 
         return response()->json([
+
             'success' => true,
+
             'message' => 'Homeworks fetched successfully',
+
             'data' => $homeworks
+
         ], 200);
     }
 
@@ -31,16 +73,24 @@ class HomeworkController extends Controller
     public function store(Request $request)
     {
         $homework = Homework::create([
+
             'class_id' => $request->class_id,
+
             'student_id' => $request->student_id,
+
             'topic' => $request->topic,
+
             'status' => $request->status,
         ]);
 
         return response()->json([
+
             'success' => true,
+
             'message' => 'Homework created successfully',
+
             'data' => $homework
+
         ], 201);
     }
 
@@ -54,16 +104,24 @@ class HomeworkController extends Controller
         $homework = Homework::with(['class', 'student'])->find($id);
 
         if (!$homework) {
+
             return response()->json([
+
                 'success' => false,
+
                 'message' => 'Homework not found'
+
             ], 404);
         }
 
         return response()->json([
+
             'success' => true,
+
             'message' => 'Homework fetched successfully',
+
             'data' => $homework
+
         ], 200);
     }
 
@@ -77,23 +135,35 @@ class HomeworkController extends Controller
         $homework = Homework::find($id);
 
         if (!$homework) {
+
             return response()->json([
+
                 'success' => false,
+
                 'message' => 'Homework not found'
+
             ], 404);
         }
 
         $homework->update([
+
             'class_id' => $request->class_id,
+
             'student_id' => $request->student_id,
+
             'topic' => $request->topic,
+
             'status' => $request->status,
         ]);
 
         return response()->json([
+
             'success' => true,
+
             'message' => 'Homework updated successfully',
+
             'data' => $homework
+
         ], 200);
     }
 
@@ -107,17 +177,24 @@ class HomeworkController extends Controller
         $homework = Homework::find($id);
 
         if (!$homework) {
+
             return response()->json([
+
                 'success' => false,
+
                 'message' => 'Homework not found'
+
             ], 404);
         }
 
         $homework->delete();
 
         return response()->json([
+
             'success' => true,
+
             'message' => 'Homework deleted successfully'
+
         ], 200);
     }
 }
