@@ -15,26 +15,77 @@ return new class extends Migration
     {
         Schema::create('homeworks', function (Blueprint $table) {
 
-            // Primary Key
+            /*
+            |--------------------------------------------------------------------------
+            | PRIMARY KEY
+            |--------------------------------------------------------------------------
+            */
+
             $table->id();
 
-            // Foreign Key -> classes table
+            /*
+            |--------------------------------------------------------------------------
+            | FOREIGN KEY -> CLASSES TABLE
+            |--------------------------------------------------------------------------
+            */
+
             $table->foreignId('class_id')
+
                   ->constrained('classes')
+
                   ->onDelete('cascade');
 
-            // Foreign Key -> students table
-            $table->foreignId('student_id')
-                  ->constrained('students')
-                  ->onDelete('cascade');
+            /*
+            |--------------------------------------------------------------------------
+            | HOMEWORK DETAILS
+            |--------------------------------------------------------------------------
+            */
 
-            // Homework Topic
+            // Homework title/topic
+
             $table->string('topic', 100);
 
-            // Homework Status
-            $table->string('status', 20);
+            // Extra instructions/details
 
-            // created_at & updated_at
+            $table->text('description')->nullable();
+
+            /*
+            |--------------------------------------------------------------------------
+            | FILE STORAGE
+            |--------------------------------------------------------------------------
+            |
+            | Stores file path only
+            | Example:
+            | homeworks/abc123.pdf
+            |
+            */
+
+            $table->string('file')->nullable();
+
+            /*
+            |--------------------------------------------------------------------------
+            | SUBMISSION DEADLINE
+            |--------------------------------------------------------------------------
+            */
+
+            $table->date('due_date')->nullable();
+
+            /*
+            |--------------------------------------------------------------------------
+            | HOMEWORK STATUS
+            |--------------------------------------------------------------------------
+            */
+
+            // active / inactive / completed
+
+            $table->string('status', 20)->default('active');
+
+            /*
+            |--------------------------------------------------------------------------
+            | TIMESTAMPS
+            |--------------------------------------------------------------------------
+            */
+
             $table->timestamps();
         });
     }
