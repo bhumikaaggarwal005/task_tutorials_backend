@@ -25,9 +25,9 @@ class Enrollment extends Model
 
     protected $fillable = [
 
-        'userId',
+        'user_id',
 
-        'classId',
+        'class_id',
 
         'dob',
 
@@ -49,7 +49,7 @@ class Enrollment extends Model
 
             User::class,
 
-            'userId'
+            'user_id'
         );
     }
 
@@ -60,7 +60,7 @@ class Enrollment extends Model
 
             ClassModel::class,
 
-            'classId'
+            'class_id'
         );
     }
 }

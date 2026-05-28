@@ -24,6 +24,6 @@ class MasRole extends Model
     // Mas role has many users
     public function users()
     {
-        return $this->hasMany(User::class, 'roleId');
+        return $this->hasMany(User::class, 'role_id');
     }
 }

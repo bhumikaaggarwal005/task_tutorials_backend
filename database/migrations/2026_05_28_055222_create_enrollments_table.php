@@ -29,7 +29,7 @@ return new class extends Migration
             |--------------------------------------------------------------------------
             */
 
-            $table->foreignId('userId')
+            $table->foreignId('user_id')
 
                 ->constrained('users')
 
@@ -41,7 +41,7 @@ return new class extends Migration
             |--------------------------------------------------------------------------
             */
 
-            $table->foreignId('classId')
+            $table->foreignId('class_id')
 
                 ->constrained('classes')
 

@@ -25,7 +25,7 @@ class Student extends Model
 
     protected $fillable = [
 
-        'userId',
+        'user_id',
 
         'dob',
 
@@ -45,7 +45,7 @@ class Student extends Model
 
             User::class,
 
-            'userId'
+            'user_id'
         );
     }
 }

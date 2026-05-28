@@ -29,7 +29,7 @@ return new class extends Migration
             |--------------------------------------------------------------------------
             */
 
-            $table->foreignId('userId')
+            $table->foreignId('user_id')
 
                 ->constrained('users')
 

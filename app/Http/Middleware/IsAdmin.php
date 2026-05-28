@@ -20,7 +20,7 @@ class IsAdmin
             ], 401);
         }
 
-        if (Auth::user()->roleId != 3) {
+        if (Auth::user()->role_id != 3) {
 
             return response()->json([
                 'success' => false,

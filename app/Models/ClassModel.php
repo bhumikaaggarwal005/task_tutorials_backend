@@ -12,8 +12,8 @@ class ClassModel extends Model
     protected $table = 'classes';
 
     protected $fillable = [
-        'facultyId',
-        'subjectId',
+        'faculty_id',
+        'subject_id',
         'name',
         'class_link',
         'class_date',
@@ -30,12 +30,12 @@ class ClassModel extends Model
     // Class belongs to faculty
     public function faculty()
     {
-        return $this->belongsTo(Faculty::class, 'facultyId');
+        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
     // Class belongs to subject
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'subjectId');
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 }

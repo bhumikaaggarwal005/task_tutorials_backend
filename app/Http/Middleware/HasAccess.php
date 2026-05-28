@@ -48,7 +48,7 @@ class HasAccess
         |--------------------------------------------------------------------------
         */
 
-        if ($user->roleId == 3) {
+        if ($user->role_id == 3) {
 
             return $next($request);
         }
@@ -59,7 +59,7 @@ class HasAccess
         |--------------------------------------------------------------------------
         */
 
-        if ($user->roleId == 2) {
+        if ($user->role_id == 2) {
 
             return $next($request);
         }
@@ -70,7 +70,7 @@ class HasAccess
         |--------------------------------------------------------------------------
         */
 
-        $student = Student::where('userId', $user->id)
+        $student = Student::where('user_id', $user->id)
 
             ->first();
 

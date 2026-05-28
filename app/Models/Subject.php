@@ -29,7 +29,7 @@ class Subject extends Model
     // Subject has many classes
     public function classes()
     {
-        return $this->hasMany(ClassModel::class, 'subjectId');
+        return $this->hasMany(ClassModel::class, 'subject_id');
     }
 
     // Subject has many notes

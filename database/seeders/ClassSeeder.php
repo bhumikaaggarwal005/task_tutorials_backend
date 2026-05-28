@@ -9,54 +9,53 @@ class ClassSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         /*
         |--------------------------------------------------------------------------
-        | 10th Maths
+        | 10TH MATHS
         |--------------------------------------------------------------------------
         */
 
         ClassModel::create([
 
+            'faculty_id' => 1,
+
+            'subject_id' => 1,
+
             'name' => '10th',
 
-            'subjectId' => 1,
+            'class_link' => 'https://meet.google.com/maths-class',
 
-            'facultyId' => 1
+            'class_date' => '2026-05-30',
+
+            'start_time' => '10:00:00',
+
+            'end_time' => '11:00:00'
         ]);
 
         /*
         |--------------------------------------------------------------------------
-        | 10th English
+        | 10TH ENGLISH
         |--------------------------------------------------------------------------
         */
 
         ClassModel::create([
 
-            'name' => '10th',
+            'faculty_id' => 2,
 
-            'subjectId' => 2,
-
-            'facultyId' => 1
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | 10th Science
-        |--------------------------------------------------------------------------
-        */
-
-        ClassModel::create([
+            'subject_id' => 2,
 
             'name' => '10th',
 
-            'subjectId' => 3,
+            'class_link' => 'https://meet.google.com/english-class',
 
-            'facultyId' => 1
+            'class_date' => '2026-05-30',
+
+            'start_time' => '12:00:00',
+
+            'end_time' => '01:00:00'
         ]);
     }
 }

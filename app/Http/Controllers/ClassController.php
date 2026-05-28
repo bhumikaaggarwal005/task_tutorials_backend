@@ -32,8 +32,8 @@ class ClassController extends Controller
     public function store(Request $request)
     {
         $class = ClassModel::create([
-            'facultyId' => $request->facultyId,
-            'subjectId' => $request->subjectId,
+            'faculty_id' => $request->faculty_id,
+            'subject_id' => $request->subject_id,
             'name' => $request->name,
             'class_link' => $request->class_link,
             'class_date' => $request->class_date,
@@ -88,8 +88,8 @@ class ClassController extends Controller
         }
 
         $class->update([
-            'facultyId' => $request->facultyId,
-            'subjectId' => $request->subjectId,
+            'faculty_id' => $request->faculty_id,
+            'subject_id' => $request->subject_id,
             'name' => $request->name,
             'class_link' => $request->class_link,
             'class_date' => $request->class_date,

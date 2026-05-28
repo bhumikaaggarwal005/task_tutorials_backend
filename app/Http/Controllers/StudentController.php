@@ -42,7 +42,7 @@ class StudentController extends Controller
 
         $request->validate([
 
-            'userId' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
 
             'dob' => 'required|date',
 
@@ -57,9 +57,9 @@ class StudentController extends Controller
 
         $existingStudent = Student::where(
 
-            'userId',
+            'user_id',
 
-            $request->userId
+            $request->user_id
 
         )->first();
 
@@ -82,7 +82,7 @@ class StudentController extends Controller
 
         $student = Student::create([
 
-            'userId' => $request->userId,
+            'user_id' => $request->user_id,
 
             'dob' => $request->dob,
 

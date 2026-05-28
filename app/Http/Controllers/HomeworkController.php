@@ -23,7 +23,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 3) {
+        if (auth()->user()->role_id == 3) {
 
             $homeworks = Homework::with('class')->get();
 
@@ -44,7 +44,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             /*
             |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $faculty = Faculty::where('userId', auth()->id())
+            $faculty = Faculty::where('user_id', auth()->id())
 
                 ->first();
 
@@ -62,7 +62,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $classIds = ClassModel::where('facultyId', $faculty->id)
+            $class_ids = ClassModel::where('faculty_id', $faculty->id)
 
                 ->pluck('id');
 
@@ -72,7 +72,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $homeworks = Homework::whereIn('class_id', $classIds)
+            $homeworks = Homework::whereIn('class_id', $class_ids)
 
                 ->with('class')
 
@@ -95,13 +95,13 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $classIds = Enrollment::where('userId', auth()->id())
+        $class_ids = Enrollment::where('user_id', auth()->id())
 
             ->where('status', 'approved')
 
-            ->pluck('classId');
+            ->pluck('class_id');
 
-        $homeworks = Homework::whereIn('class_id', $classIds)
+        $homeworks = Homework::whereIn('class_id', $class_ids)
 
             ->with('class')
 
@@ -146,7 +146,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -163,7 +163,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             /*
             |--------------------------------------------------------------------------
@@ -171,7 +171,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $faculty = Faculty::where('userId', auth()->id())
+            $faculty = Faculty::where('user_id', auth()->id())
 
                 ->first();
 
@@ -183,7 +183,7 @@ class HomeworkController extends Controller
 
             $class = ClassModel::where('id', $request->class_id)
 
-                ->where('facultyId', $faculty->id)
+                ->where('faculty_id', $faculty->id)
 
                 ->first();
 
@@ -286,7 +286,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -303,7 +303,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             /*
             |--------------------------------------------------------------------------
@@ -311,7 +311,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $faculty = Faculty::where('userId', auth()->id())
+            $faculty = Faculty::where('user_id', auth()->id())
 
                 ->first();
 
@@ -323,7 +323,7 @@ class HomeworkController extends Controller
 
             $class = ClassModel::where('id', $homework->class_id)
 
-                ->where('facultyId', $faculty->id)
+                ->where('faculty_id', $faculty->id)
 
                 ->first();
 
@@ -393,7 +393,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -410,7 +410,7 @@ class HomeworkController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             /*
             |--------------------------------------------------------------------------
@@ -418,7 +418,7 @@ class HomeworkController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            $faculty = Faculty::where('userId', auth()->id())
+            $faculty = Faculty::where('user_id', auth()->id())
 
                 ->first();
 
@@ -430,7 +430,7 @@ class HomeworkController extends Controller
 
             $class = ClassModel::where('id', $homework->class_id)
 
-                ->where('facultyId', $faculty->id)
+                ->where('faculty_id', $faculty->id)
 
                 ->first();
 

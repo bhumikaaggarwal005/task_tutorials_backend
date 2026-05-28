@@ -13,11 +13,11 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('facultyId')
+            $table->foreignId('faculty_id')
                   ->constrained('faculties')
                   ->onDelete('cascade');
 
-            $table->foreignId('subjectId')
+            $table->foreignId('subject_id')
                   ->constrained('subjects')
                   ->onDelete('cascade');
 

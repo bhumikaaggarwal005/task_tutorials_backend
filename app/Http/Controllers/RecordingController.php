@@ -23,7 +23,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 3) {
+        if (auth()->user()->role_id == 3) {
 
             $recordings = Recording::with('class')->get();
 
@@ -44,13 +44,13 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
-            $classId = $request->class_id;
+            $class_id = $request->class_id;
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -66,11 +66,11 @@ class RecordingController extends Controller
 
                 'id',
 
-                $classId
+                $class_id
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -97,7 +97,7 @@ class RecordingController extends Controller
 
                 'class_id',
 
-                $classId
+                $class_id
 
             )->with('class')->get();
 
@@ -118,7 +118,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $classId = $request->class_id;
+        $class_id = $request->class_id;
 
         /*
         |--------------------------------------------------------------------------
@@ -128,15 +128,15 @@ class RecordingController extends Controller
 
         $enrollment = Enrollment::where(
 
-            'userId',
+            'user_id',
 
             auth()->id()
 
         )->where(
 
-            'classId',
+            'class_id',
 
-            $classId
+            $class_id
 
         )->where(
 
@@ -167,7 +167,7 @@ class RecordingController extends Controller
 
             'class_id',
 
-            $classId
+            $class_id
 
         )->with('class')->get();
 
@@ -212,7 +212,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -229,11 +229,11 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -247,7 +247,7 @@ class RecordingController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -327,7 +327,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 3) {
+        if (auth()->user()->role_id == 3) {
 
             return response()->json([
 
@@ -346,11 +346,11 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -364,7 +364,7 @@ class RecordingController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -400,13 +400,13 @@ class RecordingController extends Controller
 
         $enrollment = Enrollment::where(
 
-            'userId',
+            'user_id',
 
             auth()->id()
 
         )->where(
 
-            'classId',
+            'class_id',
 
             $recording->class_id
 
@@ -472,7 +472,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -489,11 +489,11 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -507,7 +507,7 @@ class RecordingController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -579,7 +579,7 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -596,11 +596,11 @@ class RecordingController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -614,7 +614,7 @@ class RecordingController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 

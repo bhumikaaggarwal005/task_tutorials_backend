@@ -21,7 +21,7 @@ class IsFaculty
             ], 401);
         }
 
-        if (Auth::user()->roleId != 2) {
+        if (Auth::user()->role_id != 2) {
 
             return response()->json([
 

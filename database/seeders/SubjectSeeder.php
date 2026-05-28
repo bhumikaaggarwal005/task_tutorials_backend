@@ -9,24 +9,29 @@ class SubjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Subject::create([
+        /*
+        |--------------------------------------------------------------------------
+        | MATHS
+        |--------------------------------------------------------------------------
+        */
 
-            'name' => 'Maths'
+        Subject::create([
+            'faculty_id' => 1,
+            'name' => 'Mathematics'
         ]);
 
-        Subject::create([
+        /*
+        |--------------------------------------------------------------------------
+        | ENGLISH
+        |--------------------------------------------------------------------------
+        */
 
+        Subject::create([
+            'faculty_id' => 2,
             'name' => 'English'
-        ]);
-
-        Subject::create([
-
-            'name' => 'Science'
         ]);
     }
 }

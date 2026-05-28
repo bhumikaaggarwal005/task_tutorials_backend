@@ -105,7 +105,7 @@ class AuthController extends Controller
 
             $user = User::create([
 
-                'roleId' => $studentRole->id,
+                'role_id' => $studentRole->id,
 
                 'name' => $request->name,
 
@@ -272,7 +272,7 @@ class AuthController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if ($user->roleId == 3) {
+        if ($user->role_id == 3) {
 
             $hasAccess = true;
         }
@@ -283,7 +283,7 @@ class AuthController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if ($user->roleId == 2) {
+        if ($user->role_id == 2) {
 
             $hasAccess = true;
         }
@@ -294,11 +294,11 @@ class AuthController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if ($user->roleId == 1) {
+        if ($user->role_id == 1) {
 
             $student = Student::where(
 
-                'userId',
+                'user_id',
 
                 $user->id
 

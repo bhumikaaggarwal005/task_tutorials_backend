@@ -47,7 +47,7 @@ class EnrollmentController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId != 1) {
+        if (auth()->user()->role_id != 1) {
 
             return response()->json([
 
@@ -66,7 +66,7 @@ class EnrollmentController extends Controller
 
         $request->validate([
 
-            'classId' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:classes,id',
 
             'dob' => 'required|date',
 
@@ -81,15 +81,15 @@ class EnrollmentController extends Controller
 
         $alreadyExists = Enrollment::where(
 
-            'userId',
+            'user_id',
 
             auth()->id()
 
         )->where(
 
-            'classId',
+            'class_id',
 
-            $request->classId
+            $request->class_id
 
         )->whereIn(
 
@@ -118,9 +118,9 @@ class EnrollmentController extends Controller
 
         $enrollment = Enrollment::create([
 
-            'userId' => auth()->id(),
+            'user_id' => auth()->id(),
 
-            'classId' => $request->classId,
+            'class_id' => $request->class_id,
 
             'dob' => $request->dob,
 
@@ -235,9 +235,9 @@ class EnrollmentController extends Controller
 
             $student = Student::where(
 
-                'userId',
+                'user_id',
 
-                $enrollment->userId
+                $enrollment->user_id
 
             )->first();
 
@@ -245,7 +245,7 @@ class EnrollmentController extends Controller
 
                 Student::create([
 
-                    'userId' => $enrollment->userId,
+                    'user_id' => $enrollment->user_id,
 
                     'dob' => $enrollment->dob,
 

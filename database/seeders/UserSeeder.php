@@ -10,66 +10,65 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         /*
         |--------------------------------------------------------------------------
-        | ADMIN USER
+        | ADMIN
         |--------------------------------------------------------------------------
         */
 
         User::create([
-
-            'roleId' => 3,
-
+            'role_id' => 3,
             'name' => 'Admin',
-
             'email' => 'admin@gmail.com',
-
             'password' => Hash::make('password'),
-
             'phone_no' => '9999999999'
         ]);
 
         /*
         |--------------------------------------------------------------------------
-        | FACULTY USER
+        | FACULTY USERS
         |--------------------------------------------------------------------------
         */
 
         User::create([
-
-            'roleId' => 2,
-
+            'role_id' => 2,
             'name' => 'Ramesh',
-
-            'email' => 'faculty@gmail.com',
-
+            'email' => 'ramesh@gmail.com',
             'password' => Hash::make('password'),
-
             'phone_no' => '8888888888'
+        ]);
+
+        User::create([
+            'role_id' => 2,
+            'name' => 'Suresh',
+            'email' => 'suresh@gmail.com',
+            'password' => Hash::make('password'),
+            'phone_no' => '7777777777'
         ]);
 
         /*
         |--------------------------------------------------------------------------
-        | STUDENT USER
+        | STUDENT USERS
         |--------------------------------------------------------------------------
         */
 
         User::create([
-
-            'roleId' => 1,
-
-            'name' => 'Daksh',
-
-            'email' => 'student@gmail.com',
-
+            'role_id' => 1,
+            'name' => 'Aman',
+            'email' => 'aman@gmail.com',
             'password' => Hash::make('password'),
+            'phone_no' => '6666666666'
+        ]);
 
-            'phone_no' => '7777777777'
+        User::create([
+            'role_id' => 1,
+            'name' => 'Rahul',
+            'email' => 'rahul@gmail.com',
+            'password' => Hash::make('password'),
+            'phone_no' => '5555555555'
         ]);
     }
 }

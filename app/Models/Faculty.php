@@ -37,6 +37,6 @@ class Faculty extends Model
     // Faculty has many classes
     public function classes()
     {
-        return $this->hasMany(ClassModel::class, 'facultyId');
+        return $this->hasMany(ClassModel::class, 'faculty_id');
     }
 }

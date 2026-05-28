@@ -33,7 +33,7 @@ class IsStudent
         |--------------------------------------------------------------------------
         */
 
-        if (Auth::user()->roleId != 1) {
+        if (Auth::user()->role_id != 1) {
 
             return response()->json([
 

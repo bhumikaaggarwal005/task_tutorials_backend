@@ -23,7 +23,7 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 3) {
+        if (auth()->user()->role_id == 3) {
 
             $notes = Note::with([
 
@@ -50,19 +50,19 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
             )->first();
 
-            $classIds = ClassModel::where(
+            $class_ids = ClassModel::where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -72,7 +72,7 @@ class NoteController extends Controller
 
                 'class_id',
 
-                $classIds
+                $class_ids
 
             )->with([
 
@@ -99,9 +99,9 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $classIds = Enrollment::where(
+        $class_ids = Enrollment::where(
 
-            'userId',
+            'user_id',
 
             auth()->id()
 
@@ -111,13 +111,13 @@ class NoteController extends Controller
 
             'approved'
 
-        )->pluck('classId');
+        )->pluck('class_id');
 
         $notes = Note::whereIn(
 
             'class_id',
 
-            $classIds
+            $class_ids
 
         )->with([
 
@@ -168,7 +168,7 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -185,11 +185,11 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -203,7 +203,7 @@ class NoteController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -322,7 +322,7 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -339,11 +339,11 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -357,7 +357,7 @@ class NoteController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 
@@ -444,7 +444,7 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (!in_array(auth()->user()->roleId, [2, 3])) {
+        if (!in_array(auth()->user()->role_id, [2, 3])) {
 
             return response()->json([
 
@@ -461,11 +461,11 @@ class NoteController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        if (auth()->user()->roleId == 2) {
+        if (auth()->user()->role_id == 2) {
 
             $faculty = Faculty::where(
 
-                'userId',
+                'user_id',
 
                 auth()->id()
 
@@ -479,7 +479,7 @@ class NoteController extends Controller
 
             )->where(
 
-                'facultyId',
+                'faculty_id',
 
                 $faculty->id
 

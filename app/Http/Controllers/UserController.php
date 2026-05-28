@@ -31,7 +31,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
-            'roleId' => $request->roleId,
+            'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -85,7 +85,7 @@ class UserController extends Controller
         }
 
         $user->update([
-            'roleId' => $request->roleId,
+            'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,

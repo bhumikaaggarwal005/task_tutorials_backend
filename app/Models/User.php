@@ -10,7 +10,7 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'roleId',
+        'role_id',
         'name',
         'email',
         'password',
@@ -26,13 +26,13 @@ class User extends Authenticatable
     // User belongs to mas role
     public function masRole()
     {
-        return $this->belongsTo(MasRole::class, 'roleId');
+        return $this->belongsTo(MasRole::class, 'role_id');
     }
 
     // User has one student
     public function student()
     {
-        return $this->hasOne(Student::class, 'userId');
+        return $this->hasOne(Student::class, 'user_id');
     }
 
     // User has one faculty

@@ -274,7 +274,7 @@ class AuthController extends Controller
      * 1. Validate all input data
      * 2. Check if email already exists (prevent duplicate accounts)
      * 3. Check if phone number already exists (prevent duplicate accounts)
-     * 4. Verify roleId exists in mas_roles table
+     * 4. Verify role_id exists in mas_roles table
      * 5. Hash password (never store plain text passwords!)
      * 6. Create user in database
      * 7. Automatically log the user in (create session)
@@ -289,7 +289,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'phone_no' => 'required|string|max:20|unique:users',
-            'roleId' => 'required|integer|exists:mas_roles,id',
+            'role_id' => 'required|integer|exists:mas_roles,id',
         ], [
             // Custom error messages for better user experience
             'name.required' => 'Name is required',
@@ -300,9 +300,9 @@ class AuthController extends Controller
             'password.min' => 'Password must be at least 6 characters',
             'phone_no.required' => 'Phone number is required',
             'phone_no.unique' => 'This phone number is already registered',
-            'roleId.required' => 'Role is required',
-            'roleId.integer' => 'Role must be a valid number',
-            'roleId.exists' => 'Selected role does not exist',
+            'role_id.required' => 'Role is required',
+            'role_id.integer' => 'Role must be a valid number',
+            'role_id.exists' => 'Selected role does not exist',
         ]);
 
         // If validation fails, return error response
@@ -332,8 +332,8 @@ class AuthController extends Controller
             ], 409);
         }
 
-        // Step 4: Verify roleId exists in mas_roles table
-        $role = MasRole::find($request->roleId);
+        // Step 4: Verify role_id exists in mas_roles table
+        $role = MasRole::find($request->role_id);
         if (!$role) {
             return response()->json([
                 'success' => false,
@@ -355,7 +355,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $hashedPassword,
             'phone_no' => $request->phone_no,
-            'roleId' => $request->roleId,
+            'role_id' => $request->role_id,
         ]);
 
         // Step 7: Automatically log the user in (create session)
@@ -373,7 +373,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone_no' => $user->phone_no,
-                'roleId' => $user->roleId,
+                'role_id' => $user->role_id,
                 'role' => $user->masRole ? $user->masRole->name : null,
             ]
         ], 201); // 201 = Created
@@ -449,7 +449,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone_no' => $user->phone_no,
-                'roleId' => $user->roleId,
+                'role_id' => $user->role_id,
                 'role' => $user->masRole ? $user->masRole->name : null,
             ]
         ]);
@@ -531,7 +531,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone_no' => $user->phone_no,
-                'roleId' => $user->roleId,
+                'role_id' => $user->role_id,
                 'role' => $user->masRole ? $user->masRole->name : null,
             ]
         ]);
@@ -564,7 +564,7 @@ class AuthController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'phone_no' => $user->phone_no,
-                    'roleId' => $user->roleId,
+                    'role_id' => $user->role_id,
                     'role' => $user->masRole ? $user->masRole->name : null,
                 ]
             ]);
@@ -616,8 +616,8 @@ class ClassController extends Controller
     public function store(Request $request)
     {
         $class = ClassModel::create([
-            'facultyId' => $request->facultyId,
-            'subjectId' => $request->subjectId,
+            'faculty_id' => $request->faculty_id,
+            'subject_id' => $request->subject_id,
             'name' => $request->name,
             'class_link' => $request->class_link,
             'class_date' => $request->class_date,
@@ -672,8 +672,8 @@ class ClassController extends Controller
         }
 
         $class->update([
-            'facultyId' => $request->facultyId,
-            'subjectId' => $request->subjectId,
+            'faculty_id' => $request->faculty_id,
+            'subject_id' => $request->subject_id,
             'name' => $request->name,
             'class_link' => $request->class_link,
             'class_date' => $request->class_date,
@@ -1412,8 +1412,8 @@ class StudentController extends Controller
 
             // VALIDATION
             $request->validate([
-                'userId' => 'required',
-                'classId' => 'required',
+                'user_id' => 'required',
+                'class_id' => 'required',
                 'dob' => 'required',
                 'address' => 'required',
                 'status' => 'required'
@@ -1421,8 +1421,8 @@ class StudentController extends Controller
 
             // CREATE STUDENT
             $student = Student::create([
-                'userId' => $request->userId,
-                'classId' => $request->classId,
+                'user_id' => $request->user_id,
+                'class_id' => $request->class_id,
                 'dob' => $request->dob,
                 'address' => $request->address,
                 'status' => $request->status
@@ -1464,8 +1464,8 @@ class StudentController extends Controller
 
             // VALIDATION
             $request->validate([
-                'userId' => 'required',
-                'classId' => 'required',
+                'user_id' => 'required',
+                'class_id' => 'required',
                 'dob' => 'required',
                 'address' => 'required',
                 'status' => 'required'
@@ -1473,8 +1473,8 @@ class StudentController extends Controller
 
             // UPDATE STUDENT
             $student->update([
-                'userId' => $request->userId,
-                'classId' => $request->classId,
+                'user_id' => $request->user_id,
+                'class_id' => $request->class_id,
                 'dob' => $request->dob,
                 'address' => $request->address,
                 'status' => $request->status
@@ -1740,7 +1740,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
-            'roleId' => $request->roleId,
+            'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -1794,7 +1794,7 @@ class UserController extends Controller
         }
 
         $user->update([
-            'roleId' => $request->roleId,
+            'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -2275,8 +2275,8 @@ class ClassModel extends Model
     protected $table = 'classes';
 
     protected $fillable = [
-        'facultyId',
-        'subjectId',
+        'faculty_id',
+        'subject_id',
         'name',
         'class_link',
         'class_date',
@@ -2293,13 +2293,13 @@ class ClassModel extends Model
     // Class belongs to faculty
     public function faculty()
     {
-        return $this->belongsTo(Faculty::class, 'facultyId');
+        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
     // Class belongs to subject
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'subjectId');
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 }
 
@@ -2346,7 +2346,7 @@ class Faculty extends Model
     // Faculty has many classes
     public function classes()
     {
-        return $this->hasMany(ClassModel::class, 'facultyId');
+        return $this->hasMany(ClassModel::class, 'faculty_id');
     }
 }
 
@@ -2423,7 +2423,7 @@ class MasRole extends Model
     // Mas role has many users
     public function users()
     {
-        return $this->hasMany(User::class, 'roleId');
+        return $this->hasMany(User::class, 'role_id');
     }
 }
 
@@ -2523,8 +2523,8 @@ class Student extends Model
     use HasFactory;
 
    protected $fillable = [
-    'userId',
-    'classId',
+    'user_id',
+    'class_id',
     'dob',
     'address',
     'status'
@@ -2566,7 +2566,7 @@ class Subject extends Model
     // Subject has many classes
     public function classes()
     {
-        return $this->hasMany(ClassModel::class, 'subjectId');
+        return $this->hasMany(ClassModel::class, 'subject_id');
     }
 
     // Subject has many notes
@@ -2614,7 +2614,7 @@ class User extends Model
     use HasFactory;
 
     protected $fillable = [
-        'roleId',
+        'role_id',
         'name',
         'email',
         'password',
@@ -2630,13 +2630,13 @@ class User extends Model
     // User belongs to mas role
     public function masRole()
     {
-        return $this->belongsTo(MasRole::class, 'roleId');
+        return $this->belongsTo(MasRole::class, 'role_id');
     }
 
     // User has one student
     public function student()
     {
-        return $this->hasOne(Student::class, 'userId');
+        return $this->hasOne(Student::class, 'user_id');
     }
 
     // User has one faculty
@@ -13010,7 +13010,7 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('roleId')
+            $table->foreignId('role_id')
                   ->constrained('mas_roles')
                   ->onDelete('cascade');
 
@@ -13132,11 +13132,11 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('facultyId')
+            $table->foreignId('faculty_id')
                   ->constrained('faculties')
                   ->onDelete('cascade');
 
-            $table->foreignId('subjectId')
+            $table->foreignId('subject_id')
                   ->constrained('subjects')
                   ->onDelete('cascade');
 
@@ -13180,11 +13180,11 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('userId')
+            $table->foreignId('user_id')
                   ->constrained('users')
                   ->onDelete('cascade');
 
-            $table->foreignId('classId')
+            $table->foreignId('class_id')
                   ->constrained('classes')
                   ->onDelete('cascade');
 
